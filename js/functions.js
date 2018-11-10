@@ -132,7 +132,7 @@ function drawtree (ctx,startx,starty,length,angle,depth,branchWidth){
 				if(depth<=1) {
 					n_angle = 0;
 					n_length = length;
-				}
+				};
 	            setTimeout(function (){
 	                drawtree(ctx,endx,endy,n_length,n_angle,n_depth,branchWidth);
 	                return;
