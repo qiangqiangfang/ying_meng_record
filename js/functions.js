@@ -74,8 +74,8 @@ function startFullHeartAnimation() {
 
 function adjustByDevice(){
 	        if(!isPc()){
-		        $("#tree_left").css("top", $("#garden").position().top+250);
-		        $("#tree_right").css("top", $("#garden").position().top+250);
+		        $("#tree_left").css("top", $("#garden").position().top+275);
+		        $("#tree_right").css("top", $("#garden").position().top+275);
 	        }
         }
 
