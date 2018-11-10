@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title> Always with me</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<style type="text/css">
+		@font-face {
+			font-family: digit;
+			src: url('digital-7_mono.ttf') format("truetype");
+		}
+		#lanren #audio-btn{width: 44px;height: 44px; margin:100px auto;background-size: 100% 100%;}
+		#lanren .on{background: url('images/music_on.png') no-repeat 0 0;-webkit-animation: rotating 1.2s linear infinite;animation: rotating 1.2s linear infinite;}
+		#lanren .off{background: url('images/music_off.png') no-repeat 0 0;}
+		@-webkit-keyframes rotating {
+			from{
+				-webkit-transform: rotate(0deg);
+				-moz-transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				-o-transform: rotate(0deg);
+		    	transform: rotate(0deg);
+			}
+			to{
+				-webkit-transform: rotate(360deg);
+				-moz-transform: rotate(360deg);
+				-ms-transform: rotate(360deg);
+				-o-transform: rotate(360deg);
+				transform: rotate(360deg);
+			}
+		}
+		@keyframes rotating {
+		    from{
+		        -webkit-transform: rotate(0deg);
+				-moz-transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				-o-transform: rotate(0deg);
+		        transform: rotate(0deg);
+		    }
+		    to{
+		        -webkit-transform: rotate(360deg);
+				-moz-transform: rotate(360deg);
+				-ms-transform: rotate(360deg);
+				-o-transform: rotate(360deg);
+		        transform: rotate(360deg);
+		    }
+		}
+
+	</style>
+	<link href="css/default.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/garden.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+
+<body>
+	<div id="mainDiv">
+		<div id="content">
+			<div id="loveHeart" style="position:relative;">
+				<div id="lanren">
+					<div id="audio-btn" class="off" onclick="lanren.changeClass(this,'media')">
+						<audio loop="loop" src="music/always_with_me.mp3" id="media" preload="preload"></audio>
+					</div>
+		        </div>
+				<canvas id="garden"></canvas>
+                <canvas id='tree_left' width="300" height="350" ></canvas>
+                <canvas id='tree_right' width="300" height="350" ></canvas>
+
+                <div id="words">
+
+					<div id="messages">
+						Ying, We have been together for
+						<div id="elapseClock"></div>
+					</div>
+
+					<div id="loveu">
+						I will be always with you.<br/>
+						<div class="signature">- Meng</div>
+					</div>
+				</div>
+			</div>
+
+
+			
+				
+
+
+			
+		</div>
+		
+		
+	</div>
+	<script type="text/javascript">
+        
+        //adjustLanrenPosition();
+	    var lanren = {
+				changeClass: function (target,id) {
+		       	var className = $(target).attr('class');
+		       	var ids = document.getElementById(id);
+		       	(className == 'on')
+		           	? $(target).removeClass('on').addClass('off')
+		           	: $(target).removeClass('off').addClass('on');
+		       	(className == 'on')
+		           	? ids.pause()
+		           	: ids.play();
+		   	    },
+				play:function(){
+					document.getElementById('media').play();
+				}
+		};
+		if(isPc()){
+			lanren.changeClass("#audio-btn",'media');
+		}
+		
+
+	
+		var together = new Date();
+		together.setFullYear(2016, 10, 19);
+		together.setHours(17);
+		together.setMinutes(52);
+		together.setSeconds(0);
+		together.setMilliseconds(0);
+		
+		if (!document.createElement('canvas').getContext) {
+			var msg = document.createElement("div");
+			msg.id = "errorMsg";
+			msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+"; 
+			document.body.appendChild(msg);
+			$("#code").css("display", "none")
+			$("#copyright").css("position", "absolute");
+			$("#copyright").css("bottom", "10px");
+		    document.execCommand("stop");
+		} else {
+			
+			var offsetX = $("#loveHeart").width() / 2;
+		    var offsetY = $("#loveHeart").height() / 2 - 55;
+
+			startFullHeartAnimation();
+
+			
+
+			// 房子顶点
+			var x = parseInt("600");
+			var y = parseInt("20");
+			var angel = parseInt("60")*0.017453293;
+			var distance = parseInt("30"); // 花朵之间的距离
+
+			var count_1 = 15; // 斜边花朵的个数
+			var count_2 =23; // 三角形底边花朵的个数
+			var count_3 = 4; // 门的花朵开始位置
+			var count_4 = 14; // 门的花朵数
+			var count_5 = 37; // 门槛的花朵数
+			var count_6 = 9; // 窗户的高度
+			var count_7 = 3; // 窗户与门的距离
+			var count_8 = 3; // 窗户长度
+			var count_9 = 3; // 窗户宽度
+
+			time_total = 0
+			
+			setTimeout(function () {
+				var str = "startHeartAnimation("+x+","+y+");::";
+				// 左斜线
+				for(var i=1;i<=count_1;i++){
+					var tmpX = x-i*distance*Math.sin(angel);
+					var tmpY = y+i*distance*Math.cos(angel);
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				// 右斜线
+				for(var i=1;i<=count_1;i++){
+					var tmpX = x+i*distance*Math.sin(angel);
+					var tmpY = y+i*distance*Math.cos(angel);
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				// 三角形的底边
+				for(var i=1;i<=count_2;i++){
+					var tmpX = x-(count_1-1)*distance*Math.sin(angel)+distance*i;
+					var tmpY = y+(count_1-1)*distance*Math.cos(angel);
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+
+				// 左门
+				var x_1 = x-count_1*distance*Math.sin(angel)+distance*count_3;
+				var y_1 = y+(count_1-1)*distance*Math.cos(angel);
+				for(var i=1;i<=count_4;i++){
+					var tmpX = x_1;
+					var tmpY = y_1+distance*i;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				// 右门
+				var x_2 = x+count_1*distance*Math.sin(angel)-distance*count_3;
+				var y_2 = y+(count_1-1)*distance*Math.cos(angel);
+				for(var i=1;i<=count_4;i++){
+					var tmpX = x_2;
+					var tmpY = y_2+distance*i;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				// 门槛
+				for(var i=1;i<=count_5;i++){
+					var tmpX = x_1-distance*10+distance*i;
+					var tmpY = y_1+distance*count_4;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+
+				var x_3 = x_1+distance*count_7;
+				var y_3 = y_1+distance*count_4-distance*(count_6);
+				//窗户宽度
+				for(var i=0;i<=count_9;i++){
+					var tmpX = x_3;
+					var tmpY = y_3-distance*i;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				//窗户长度
+				for(var i=1;i<=count_8;i++){
+					var tmpX = x_3+distance*i;
+					var tmpY = y_3;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				var x_4 = x_3+distance*count_8;
+				var y_4 = y_3;
+				for(var i=1;i<=count_9;i++){
+					var tmpX = x_4;
+					var tmpY = y_4-distance*i;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				var x_5 = x_4;
+				var y_5 = y_4-distance*count_9;
+				for(var i=1;i<=count_8;i++){
+					var tmpX = x_5-distance*i;
+					var tmpY = y_5;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+
+				// 右窗户
+				var x_9 = x_2-distance*count_7;
+				var y_9 = y_2+distance*count_4-distance*(count_6);
+				//窗户宽度
+				for(var i=0;i<=count_9;i++){
+					var tmpX = x_9;
+					var tmpY = y_9-distance*i;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				//窗户长度
+				for(var i=1;i<=count_8;i++){
+					var tmpX = x_9-distance*i;
+					var tmpY = y_9;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				var x_10 = x_9-distance*count_8;
+				var y_10 = y_9;
+				for(var i=1;i<=count_9;i++){
+					var tmpX = x_10;
+					var tmpY = y_10-distance*i;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				var x_11 = x_10;
+				var y_11 = y_10-distance*count_9;
+				for(var i=1;i<=count_8;i++){
+					var tmpX = x_11+distance*i;
+					var tmpY = y_11;
+					str += "startHeartAnimation("+tmpX+","+tmpY+");::";
+				}
+				
+				var arr = str.split("::");
+				var count = 0;
+				var length = arr.length;
+				time_total = 130*length
+
+				garden.clear();
+
+				var a = setInterval(function() {
+						if(count<length){
+							eval(arr[count]);
+							count++;
+						}
+					}, 130)
+				
+                setTimeout(setInterval(function () {
+					timeElapse(together);
+			    }, 130), time_total);
+				
+
+			}, 5000);
+            
+            
+
+			
+            setTimeout(function (){showMessages()},time_total+5000) ;
+
+			
+		
+		    adjustTree_leftPosition()
+	        var t_left=document.getElementById('tree_left');
+	        var ctx_left= t_left.getContext('2d');
+	        //初始化的树
+	        setTimeout(function (){drawtree(ctx_left,100,410,80,-Math.PI/3, 8, 6);adjustByDevice();},19000) ;
+
+	        adjustTree_rightPosition()
+	        var t_right=document.getElementById('tree_right');
+	        var ctx_right= t_right.getContext('2d');
+	           //初始化的树
+	        setTimeout(function (){drawtree(ctx_right,95,410,80,-Math.PI/3, 8, 6);adjustByDevice();},19000) ;
+	           //drawtree(ctx_left,90,290,46,-Math.PI / 2, 5, 4)
+            
+          
+		}
+
+		$("#lanren").css("position", "absolute");
+		$("#lanren").css("top", -60);
+		$("#lanren").css("left", 580);
+
+		if(!isPc()){
+			$("#lanren").css("position", "absolute");
+			$("#lanren").css("top", -60);
+			$("#lanren").css("left", 580);
+		}
+
+        
+
+	</script>
+</body>
+</html>
