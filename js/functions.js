@@ -110,9 +110,9 @@ function drawtree (ctx,startx,starty,length,angle,depth,branchWidth){
 	        ctx.lineCap='round';
 	        ctx.lineWidth=branchWidth;
 	        ctx.lineTo(endx,endy);
-	        if(depth<=4 ){
+	        if(depth<=1){
 	            //树的枝干
-	            ctx.strokeStyle= 'rgb(0,' + (((1 * 64) +128) >>0) + ',0)';
+	            ctx.strokeStyle= 'rgb(0,' + (((rand() * 64) +128) >>0) + ',0)';
 	        }
 	        else{
 	            //树的叶子
@@ -128,11 +128,15 @@ function drawtree (ctx,startx,starty,length,angle,depth,branchWidth){
 	        branchWidth *=0.7; 
 	        for(var i=0;i<subbranch;i++){
 	            n_angle = angle +rand() * maxangle -maxangle *0.5;
-	            n_length = length * (0.5 + rand() *0.5);
+				n_length = length * (0.5 + rand() *0.5);
+				if(depth<=1) {
+					n_angle = 0;
+					n_length = length;
+				}
 	            setTimeout(function (){
 	                drawtree(ctx,endx,endy,n_length,n_angle,n_depth,branchWidth);
 	                return;
-	            },500)
+	            }, 500)
 	        }
 	}
 
