@@ -110,7 +110,7 @@ function drawtree (ctx,startx,starty,length,angle,depth,branchWidth){
 	        ctx.lineCap='round';
 	        ctx.lineWidth=branchWidth;
 	        ctx.lineTo(endx,endy);
-	        if(depth<=2 ){
+	        if(depth<=4 ){
 	            //树的枝干
 	            ctx.strokeStyle= 'rgb(0,' + (((rand() * 64) +128) >>0) + ',0)';
 	        }
